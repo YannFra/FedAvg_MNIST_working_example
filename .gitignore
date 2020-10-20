@@ -1,1 +1,4 @@
 *.pyc
+data/
+*.pkl
+*.pth
