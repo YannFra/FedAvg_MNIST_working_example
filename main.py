@@ -95,7 +95,6 @@ def plot_samples(dataset, title=None, plot_name="", n_examples=20):
         if idx<n_examples:
             ax = plt.subplot(n_rows, 5, idx+1)
             image = 255 - X.view((28,28))
-            print(X,y)
             letter = str(y)
             ax.set_title(f"{letter}")
             ax.imshow(image, cmap='gist_gray')
