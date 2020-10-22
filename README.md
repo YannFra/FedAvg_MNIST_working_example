@@ -15,4 +15,4 @@ The computed federated learning saves by default a couple of training parameters
 
 Custom MNIST enables creating for each client a MNIST dataset where each client can have a different font and/or a rotation angle. We propose in `FL_MNIST_custom.py` a simple example for FedAvg with two clients having same digits but rotated by 30 degrees for one client. More info about how the font impacts the obtained dataset can be found [here](https://github.com/LaRiffle/collateral-learning/blob/a8e40193e234e331fe49a5b0e1207b34464efa16/tutorials/Part%2001%20-%20Building%20a%202%20target%20features%20dataset.ipynb#L77).
 
-A lot of fonts are avaailable. We recommend 'InconsolataN' and 'jsMath-cmti10'. 'InconsolataN' have continuous 4 and bars on th 0 while 'jsMath-cmti10' have discontinuous 4s and no bar on the 0.
+A lot of fonts are available. We recommend 'InconsolataN' and 'jsMath-cmti10'. 'InconsolataN' have continuous 4 and bars on th 0 while 'jsMath-cmti10' have discontinuous 4s and no bar on the 0.
