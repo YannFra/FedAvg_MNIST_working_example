@@ -1,6 +1,6 @@
 # Federated Learning simple example
 
-Simple example of federated learning on MNIST
+Simple example of federated learning on MNIST using PyTorch.
 
 FedAvg is the default optimization solver but FedProx can also be used with a $\mu$ different of 0.
 
