@@ -58,7 +58,7 @@ def accuracy_dataset(model,dataset):
         
         _,predicted=predictions.max(1,keepdim=True)
         
-        correct+=torch.sum(predicted.view(-1)==labels).item()
+        correct+=torch.sum(predicted.view(-1,1)==labels.view(-1, 1)).item()
         
     accuracy = 100*correct/len(dataset.dataset)
         
@@ -85,7 +85,8 @@ def loss_classifier(predictions,labels):
     m = nn.LogSoftmax(dim=1)
     loss = nn.NLLLoss(reduction="mean")
     
-    return loss(m(predictions),labels.view(-1))
+    return loss(m(predictions) ,labels.view(-1))
+
 
 
 def n_params(model):
@@ -153,7 +154,8 @@ def save_pkl(dictionnary,directory,file_name):
         pickle.dump(dictionnary, output)  
         
 
-def FedProx(model, training_sets:list, n_iter:int, testing_set:list, mu=0, 
+
+def FedProx(model, training_sets:list, n_iter:int, testing_sets:list, mu=0, 
     file_name="test", epochs=5, lr=10**-2, decay=1):
     """ all the clients are considered in this implementation of FedProx
     Parameters:
@@ -183,7 +185,7 @@ def FedProx(model, training_sets:list, n_iter:int, testing_set:list, mu=0,
     
     loss_hist=[[float(loss_dataset(model, dl, loss_f).detach()) 
         for dl in training_sets]]
-    acc_hist=[[accuracy_dataset(model,testing_set[k]) for k in range(K)]]
+    acc_hist=[[accuracy_dataset(model, dl) for dl in testing_sets]]
     server_hist=[[tens_param.detach().numpy() 
         for tens_param in list(model.parameters())]]
     models_hist = []
@@ -224,7 +226,7 @@ def FedProx(model, training_sets:list, n_iter:int, testing_set:list, mu=0,
         #COMPUTE THE LOSS/ACCURACY OF THE DIFFERENT CLIENTS WITH THE NEW MODEL
         loss_hist+=[[float(loss_dataset(model, dl, loss_f).detach()) 
             for dl in training_sets]]
-        acc_hist+=[[accuracy_dataset(model, dl) for dl in training_sets]]
+        acc_hist+=[[accuracy_dataset(model, dl) for dl in testing_sets]]
 
         server_loss=sum([weights[i]*loss_hist[-1][i] for i in range(len(weights))])
         server_acc=sum([weights[i]*acc_hist[-1][i] for i in range(len(weights))])

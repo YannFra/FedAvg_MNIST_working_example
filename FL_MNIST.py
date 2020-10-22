@@ -22,22 +22,10 @@ mnist_test_split = torch.utils.data.random_split(mnist_testset,
 mnist_test_dls =[torch.utils.data.DataLoader(ds, batch_size=10, 
     shuffle=True) for ds in mnist_test_split]
 
-"""PLOT THE DISTRIBUTION OF THE TWO CLIENTS"""
-def plot_samples(dataset, title=None, plot_name="", n_examples=20):
-    
-    n_rows = abs(n_examples / 5)
-    plt.figure(figsize=(3* n_rows, 3*n_rows))
-    if title: plt.suptitle(title)
-    for idx,(X,y) in enumerate(dataset.dataset):
-        if idx<n_examples:
-            ax = plt.subplot(n_rows, 5, idx+1)
-            image = 255 - X.view((28,28))
-            print(X,y)
-            letter = str(y)
-            ax.set_title(f"{letter}")
-            ax.imshow(image, cmap='gist_gray')
-    if plot_name!="":
-        plt.savefig(f"plot/"+plot_name+".png")
+
+# In[2]: 
+"""PLOT THE DISTRIBUTION OF A CLIENT"""
+from py_func.plot_samples_clients import plot_samples
 
 plot_samples(mnist_train_dls[0],"Client 1")
 
@@ -75,22 +63,3 @@ plt.legend(lines, ["C1", "C2", "C3"])
 plt.savefig("plots/loss_acc_evolution.png")
 
 
-
-# In[2]:  
-"""PLOT THE DISTRIBUTION OF A CLIENT"""
-def plot_samples(dataset, title=None, plot_name="", n_examples=20):
-    
-    n_rows = abs(n_examples / 5)
-    plt.figure(figsize=(3* n_rows, 3*n_rows))
-    if title: plt.suptitle(title)
-    for idx,(X,y) in enumerate(dataset.dataset):
-        if idx<n_examples:
-            ax = plt.subplot(n_rows, 5, idx+1)
-            image = 255 - X.view((28,28))
-            letter = str(y)
-            ax.set_title(f"{letter}")
-            ax.imshow(image, cmap='gist_gray')
-    if plot_name!="":
-        plt.savefig(f"plots/"+plot_name+".png")
-
-plot_samples(mnist_train_dls[0],"Client 1", plot_name="samples_client_1")
