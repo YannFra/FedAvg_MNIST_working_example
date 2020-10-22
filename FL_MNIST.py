@@ -2,14 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
-from torch.autograd import Variable
-
-import matplotlib.pyplot as plt
-
-from copy import deepcopy
-import torch.optim as optim
 
 # In[2]:  
 """UPLOADING THE DATASETS"""
